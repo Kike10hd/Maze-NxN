@@ -23,6 +23,10 @@ Maze::Maze(string pathFile){
 		getline(file, line);
 		for(int col = 0; col < _size; col++){
 			this -> _matrix[row][col] = line[col];
+			if(line[col] == '*'){
+				this -> playerPox[0] = row;
+				this -> playerPox[1] = col;
+			}
 		}
 	}
 }
@@ -32,6 +36,10 @@ Maze::Maze(string pathFile){
 //Getters
 int Maze::getSize(){
 	return this -> _size;
+}
+
+int * Maze::getPlayerPox(){
+	return this -> playerPox;
 }
 
 char** Maze::getMaze(){

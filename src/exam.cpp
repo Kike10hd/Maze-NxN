@@ -12,12 +12,6 @@ int main()
 	cin>>pathFile;
 	Maze maze(pathFile);
 	cout<<maze.getSize()<<endl;
-	char ** arr = maze.getMaze();
-	for (int i = 0; i < maze.getSize(); ++i) {
-		for (int j = 0; j < maze.getSize(); ++j) {
-			cout<<arr[i][j];
-		}
-		cout<<"\n";
-	}
+	cout <<"Jack position: "<<maze.getPlayerPox()[0]<<maze.getPlayerPox()[1]<<endl;
 	return 0;
 }
