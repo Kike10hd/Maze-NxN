@@ -12,6 +12,6 @@ int main()
 	cin>>pathFile;
 	Maze maze(pathFile);
 	cout<<maze.getSize()<<endl;
-	cout <<"Jack position: "<<maze.getPlayerPox()[0]<<maze.getPlayerPox()[1]<<endl;
+	cout <<"Jack position: "<<maze.jack -> getPox()<<", "<<maze.jack -> getPoy()<<endl;
 	return 0;
 }
