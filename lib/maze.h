@@ -1,6 +1,13 @@
 #ifndef Maze_h
 
 #define Maze_h
+
+
+#define RED "\e[0;31m"
+#define GRN "\e[0;32m"
+#define WHT "\e[0;97m"
+#define YEW "\e[0;33m"
+
 #include <string>
 #include <queue>
 #include "./cell.h"
@@ -12,7 +19,6 @@ class Maze{
 	private:
 		int _size; //Size of the maze
 		char ** _maze; //The matrix of maze
-		char ** _memo; //The matrix for the way
 		queue<Cell> _myqueue;
 		bool flag; // check is posible to solve
 	public:

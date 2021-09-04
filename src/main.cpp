@@ -15,10 +15,9 @@ int main()
 	cout<< "Give the path of the file"<<endl;
 	cin>>pathFile;
 	Maze maze(pathFile);
-	if(maze.getFlag()){
-	cout<<maze.getSize()<<endl;
-	maze.printMaze();
-	cout<<"Jack position: "<<maze.act_cell -> getPox()<<", "<<maze.act_cell -> getPoy()<<endl;
+	if(maze.getFlag()) {
+		cout<<maze.getSize()<<endl;
+		cout<<"Jack position: "<<maze.act_cell -> getPox()<<", "<<maze.act_cell -> getPoy()<<endl;
 		int r = maze.resolve();
 		if(r != -1){
 			printf("%s%i",GRN "Number of steps: ", r);
@@ -30,5 +29,7 @@ int main()
 	else{
 		printf(RED "Out of range");
 	}
+	cout << "\n";
+	maze.printMaze();
 	return 0;
 }

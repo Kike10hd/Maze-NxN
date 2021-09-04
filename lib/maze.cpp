@@ -19,10 +19,8 @@ Maze::Maze(string pathFile){
 		// Set the matrix for the maze
 		this -> flag = true;
 		this -> _maze = (char **)malloc(this -> _size*sizeof(int *));
-		this -> _memo = (char **)malloc(this -> _size*sizeof(int *));
 		for(int i = 0; i < this -> _size; i++){
 			this -> _maze[i] = (char *) malloc(this -> _size*sizeof(int *));
-			this -> _memo[i] = (char *) malloc(this -> _size*sizeof(int *));
 		}
 
 
@@ -31,7 +29,6 @@ Maze::Maze(string pathFile){
 		getline(file, line);
 		for(int col = 0; col < _size; col++){
 			this -> _maze[row][col] = line[col];
-			this -> _memo[row][col] = 'X';
 			if(line[col] == '*'){
 				// Initialize the player
 				act_cell = new Cell(row, col, 0);
@@ -71,12 +68,10 @@ int Maze::resolve(){
 
 //Add to the move
 void Maze::add_move(int row, int col, int distance) {	
-	if(this -> _memo[row][col] == 'X' ){
-		if(this -> _maze[row][col] != 'X'){
-			Cell new_cell(row, col, distance);
-			this -> _memo[row][col] = '0';
-			this -> _myqueue.push(new_cell);
-		}
+	if(this -> _maze[row][col] == '0' || this -> _maze[row][col] == '*') {
+		Cell new_cell(row, col, distance);
+		this -> _maze[row][col] = 'O';
+		this -> _myqueue.push(new_cell);
 	}
 }
 
@@ -96,7 +91,18 @@ bool Maze::getFlag(){
 void Maze::printMaze(){
 	for (int i = 0; i < this -> _size; ++i) {
 		for(int j = 0; j < this -> _size; ++j){
-			cout << this -> _maze[i][j];
+			if(_maze[i][j] == '*'){
+				printf("%s%c%s", YEW, this -> _maze[i][j],WHT);
+			}
+			else if (_maze[i][j] == 'O'){
+				printf("%s%c%s", GRN, this -> _maze[i][j],WHT);
+			}
+			else if (_maze[i][j] == 'X'){
+				printf("%s%c%s", RED, this -> _maze[i][j],WHT);
+			}
+			else{
+				printf("%s%c%s", WHT, this -> _maze[i][j],WHT);
+			}
 		}
 		cout<<"\n";
 	}
