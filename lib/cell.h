@@ -1,19 +1,18 @@
-#ifndef Player_h
+#ifndef Cell_h
 
-#define Player_h 
+#define Cell_h
 
-class Player{
+class Cell{
 	private:
 		int _pox; // Position in x
 		int _poy; // Positions in y
 		int _distance; // Distance to move to the out
 	public:
-		Player(int pox, int poy); // Constructor
-		void walk(int x, int y); // walk and next posible cell
+		Cell(int pox, int poy, int distance); // Constructor
 		//Getters
 		int getPox(); 
 		int getPoy();
 		int getDistance();
 };
 
-#endif /* ifndef Player_h */
+#endif /* ifndef  Cell_h */

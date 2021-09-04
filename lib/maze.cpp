@@ -25,9 +25,41 @@ Maze::Maze(string pathFile){
 			this -> _matrix[row][col] = line[col];
 			if(line[col] == '*'){
 				// Initialize the player
-				this -> jack = new Player(row, col);
+				act_cell = new Cell(row, col, 0);
 			}
 		}
+	}
+}
+
+int Maze::resolve(){
+	add_move(act_cell -> getPox(), act_cell -> getPoy(),0);
+
+	while(this -> myqueue.size() > 0){
+		
+		Cell aux = this -> myqueue.front();
+		this -> myqueue.pop();
+		
+		int row = aux.getPox();
+		int col = aux.getPoy();
+		int distance = aux.getDistance();
+
+
+		if(row == 0 || row == this -> _size-1 ||
+			 col == 0 || col == this -> _size-1) {
+			return distance + 1;
+		}
+		add_move(row+1, col, distance+1);
+		add_move(row-1, col, distance+1);
+		add_move(row, col+1, distance+1);
+		add_move(row, col-1, distance+1);
+	}
+	return -1;
+}
+
+void Maze::add_move(int row, int col, int distance) {	
+	if(this -> _matrix[row][col] != 'X'){
+		Cell new_cell(row, col, distance);
+		this -> myqueue.push(new_cell);
 	}
 }
 
