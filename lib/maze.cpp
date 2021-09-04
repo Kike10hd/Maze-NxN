@@ -12,18 +12,26 @@ Maze::Maze(string pathFile){
 	// Set the size of the matrix
 	getline(file, line);
 	this -> _size = stoi(line);
-	if(this -> _size > 2 && this -> _size < 100){
+
+	// the minimum in n is 3 and the maximum is 99
+	if(this -> _size > 2 && this -> _size < 100){ 
+
+		// Set the matrix for the maze
 		this -> flag = true;
-		this -> _matrix = (char **)malloc(this -> _size*sizeof(int *));
+		this -> _maze = (char **)malloc(this -> _size*sizeof(int *));
+		this -> _memo = (char **)malloc(this -> _size*sizeof(int *));
 		for(int i = 0; i < this -> _size; i++){
-			this -> _matrix[i] = (char *) malloc(this -> _size*sizeof(int *));
+			this -> _maze[i] = (char *) malloc(this -> _size*sizeof(int *));
+			this -> _memo[i] = (char *) malloc(this -> _size*sizeof(int *));
 		}
+
 
 		// Fill the matrix
 		for(int row = 0; row < _size; row++){
 		getline(file, line);
 		for(int col = 0; col < _size; col++){
-			this -> _matrix[row][col] = line[col];
+			this -> _maze[row][col] = line[col];
+			this -> _memo[row][col] = 'X';
 			if(line[col] == '*'){
 				// Initialize the player
 				act_cell = new Cell(row, col, 0);
@@ -35,13 +43,14 @@ Maze::Maze(string pathFile){
 	}
 }
 
+//Resolve
 int Maze::resolve(){
 	add_move(act_cell -> getPox(), act_cell -> getPoy(),0);
 
-	while(this -> myqueue.size() > 0){
+	while(this -> _myqueue.size() > 0){
 		
-		Cell aux = this -> myqueue.front();
-		this -> myqueue.pop();
+		Cell aux = this -> _myqueue.front();
+		this -> _myqueue.pop();
 		
 		int row = aux.getPox();
 		int col = aux.getPoy();
@@ -60,10 +69,14 @@ int Maze::resolve(){
 	return -1;
 }
 
+//Add to the move
 void Maze::add_move(int row, int col, int distance) {	
-	if(this -> _matrix[row][col] != 'X'){
-		Cell new_cell(row, col, distance);
-		this -> myqueue.push(new_cell);
+	if(this -> _memo[row][col] == 'X' ){
+		if(this -> _maze[row][col] != 'X'){
+			Cell new_cell(row, col, distance);
+			this -> _memo[row][col] = '0';
+			this -> _myqueue.push(new_cell);
+		}
 	}
 }
 
@@ -73,7 +86,7 @@ int Maze::getSize(){
 }
 
 char** Maze::getMaze(){
-	return this -> _matrix;
+	return this -> _maze;
 }
 
 bool Maze::getFlag(){
@@ -83,7 +96,7 @@ bool Maze::getFlag(){
 void Maze::printMaze(){
 	for (int i = 0; i < this -> _size; ++i) {
 		for(int j = 0; j < this -> _size; ++j){
-			cout << this -> _matrix[i][j];
+			cout << this -> _maze[i][j];
 		}
 		cout<<"\n";
 	}

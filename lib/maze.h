@@ -2,17 +2,18 @@
 
 #define Maze_h
 #include <string>
+#include <queue>
 #include "./cell.h"
 #include "./cell.cpp"
-#include <queue>
 
 using namespace std;
 
 class Maze{
 	private:
 		int _size; //Size of the maze
-		char ** _matrix; //The maze
-		queue<Cell> myqueue;
+		char ** _maze; //The matrix of maze
+		char ** _memo; //The matrix for the way
+		queue<Cell> _myqueue;
 		bool flag; // check is posible to solve
 	public:
 		Maze(string pathFile); //Constructor
