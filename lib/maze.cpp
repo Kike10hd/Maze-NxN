@@ -5,7 +5,6 @@
 
 //Constructor
 Maze::Maze(string pathFile){
-	
 	// Read the file 
 	ifstream file(pathFile.c_str());
 	string line;
@@ -13,21 +12,26 @@ Maze::Maze(string pathFile){
 	// Set the size of the matrix
 	getline(file, line);
 	this -> _size = stoi(line);
-	this -> _matrix = (char **)malloc(this -> _size*sizeof(int *));
-	for(int i = 0; i < this -> _size; i++){
-		this -> _matrix[i] = (char *) malloc(this -> _size*sizeof(int *));
-	}
+	if(this -> _size > 2 && this -> _size < 100){
+		this -> flag = true;
+		this -> _matrix = (char **)malloc(this -> _size*sizeof(int *));
+		for(int i = 0; i < this -> _size; i++){
+			this -> _matrix[i] = (char *) malloc(this -> _size*sizeof(int *));
+		}
 
-	// Fill the matrix
-	for(int row = 0; row < _size; row++){
+		// Fill the matrix
+		for(int row = 0; row < _size; row++){
 		getline(file, line);
 		for(int col = 0; col < _size; col++){
 			this -> _matrix[row][col] = line[col];
 			if(line[col] == '*'){
 				// Initialize the player
 				act_cell = new Cell(row, col, 0);
+				}
 			}
 		}
+	}else{
+		this -> flag = false;
 	}
 }
 
@@ -72,3 +76,15 @@ char** Maze::getMaze(){
 	return this -> _matrix;
 }
 
+bool Maze::getFlag(){
+	return this -> flag;
+}
+
+void Maze::printMaze(){
+	for (int i = 0; i < this -> _size; ++i) {
+		for(int j = 0; j < this -> _size; ++j){
+			cout << this -> _matrix[i][j];
+		}
+		cout<<"\n";
+	}
+}

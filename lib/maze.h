@@ -13,6 +13,7 @@ class Maze{
 		int _size; //Size of the maze
 		char ** _matrix; //The maze
 		queue<Cell> myqueue;
+		bool flag; // check is posible to solve
 	public:
 		Maze(string pathFile); //Constructor
 		Cell * act_cell; //The heroe in maze
@@ -21,6 +22,8 @@ class Maze{
 		//Getters
 		int getSize();  
 		char ** getMaze();
+		bool getFlag(); 
+		void printMaze();
 };
 
 #endif
