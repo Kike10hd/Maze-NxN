@@ -70,9 +70,7 @@ int Maze::resolve(){
 void Maze::add_move(int row, int col, int distance) {	
 	if(this -> _maze[row][col] != 'X' && this -> _maze[row][col] != 'O') {
 		Cell new_cell(row, col, distance);
-		if(this -> _maze[row][col] != '*'){
-			this -> _maze[row][col] = 'O';
-		}
+		this -> _maze[row][col] = 'O';
 		this -> _myqueue.push(new_cell);
 	}
 }
