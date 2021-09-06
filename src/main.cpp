@@ -23,7 +23,7 @@ int main()
 			printf("%s%i",GRN "Number of steps: ", r);
 		}
 		else{
-			printf(RED "No way");
+			printf("%s%i", RED "No way home\n",r);
 		}
 	}
 	else{

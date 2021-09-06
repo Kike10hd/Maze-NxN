@@ -33,3 +33,4 @@
 
 #Stored
 .DS_Store
+.vimspector.json
